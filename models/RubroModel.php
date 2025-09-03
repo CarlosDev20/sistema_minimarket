@@ -75,5 +75,21 @@
                 return "Error al eliminar el rubro: " . $e->getMessage();
             }
         }
+
+        public function getRubros()
+        {
+            try {
+                $db = Conexion::getInstancia()->getConexion();
+                $sql = "SELECT codigo_ru, descripcion_ru 
+                        FROM tb_rubros 
+                        WHERE estado = 1
+                        ORDER BY codigo_ru";
+                $stmt = $db->query($sql);
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Error al obtener rubros: " . $e->getMessage());
+            }
+        }
+
     }
 ?>
