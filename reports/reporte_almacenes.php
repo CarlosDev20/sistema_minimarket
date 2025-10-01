@@ -1,7 +1,7 @@
 
 <?php
     require_once __DIR__ . '/../lib/fpdf/fpdf.php'; // Ajusta la ruta según dónde esté FPDF
-    require_once __DIR__ . '/../models/AlmacenModel.php'; // Modelo para obtener datos de marcas
+    require_once __DIR__ . '/../app/models/AlmacenModel.php'; // Modelo para obtener datos de marcas
 
     class reporte_almacenes extends FPDF
     {
@@ -13,7 +13,7 @@
 
             // Fuente para el título
             $this->SetFont('Arial', 'B', 14);
-            $this->Cell(0, 10, utf8_decode('Reporte de Almacenes'), 0, 1, 'C');
+            $this->Cell(0, 10, iconv('UTF-8','ISO-8859-1//TRANSLIT','Reporte de Almacenes'), 0, 1, 'C');
             $this->Ln(5);
         }
 
@@ -22,7 +22,7 @@
         {
             $this->SetY(-15);
             $this->SetFont('Arial', 'I', 8);
-            $this->Cell(0, 10, 'Página ' . $this->PageNo() . ' / {nb}', 0, 0, 'C');
+            $this->Cell(0, 10, 'Pagina ' . $this->PageNo() . ' / {nb}', 0, 0, 'C');
         }
     }
 
@@ -44,7 +44,7 @@
     // Llenar la tabla
     foreach ($marcas as $row) {
         $pdf->Cell(20, 10, $row['codigo_al'], 1, 0, 'C');
-        $pdf->Cell(120, 10, utf8_decode($row['descripcion_al']), 1, 1, 'L');
+        $pdf->Cell(120, 10, iconv('UTF-8','ISO-8859-1//TRANSLIT',$row['descripcion_al']), 1, 1, 'L');
     }
 
     // Salida del PDF

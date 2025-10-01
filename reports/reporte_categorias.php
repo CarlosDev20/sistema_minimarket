@@ -1,7 +1,7 @@
 
 <?php
     require_once __DIR__ . '/../lib/fpdf/fpdf.php'; // Ajusta la ruta según dónde esté FPDF
-    require_once __DIR__ . '/../models/CategoriaModel.php'; // Modelo de categorías
+    require_once __DIR__ . '/../app/models/CategoriaModel.php'; // Modelo de categorías
 
     class reporte_categorias extends FPDF
     {
@@ -12,7 +12,8 @@
             //$this->Image(__DIR__ . '/../assets/logo.png', 10, 8, 20);
 
             $this->SetFont('Arial', 'B', 14);
-            $this->Cell(0, 10, utf8_decode('Reporte de Categorías'), 0, 1, 'C');
+            $titulo = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'Reporte de Categorías');
+            $this->Cell(0, 10, $titulo, 0, 1, 'C');
             $this->Ln(5);
         }
 
@@ -43,7 +44,8 @@
     // Llenar la tabla
     foreach ($categorias as $row) {
         $pdf->Cell(20, 10, $row['codigo_ca'], 1, 0, 'C');
-        $pdf->Cell(120, 10, utf8_decode($row['descripcion_ca']), 1, 1, 'L');
+        $descripcion = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $row['descripcion_ca']);
+        $pdf->Cell(120, 10, $descripcion, 1, 1, 'L');
     }
 
     // Generar salida

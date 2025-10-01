@@ -1,0 +1,11 @@
+
+# Activar reescritura de URLs
+RewriteEngine On
+
+# Asegurar que se use la carpeta public como raíz
+RewriteBase /SISTEMA_MINIMARKET/public/
+
+# Si el archivo o carpeta solicitada no existe, redirigir a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
